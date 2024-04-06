@@ -2,6 +2,10 @@ import { controllers } from "./data.js";
 
 const controllerDiv = document.querySelector('.controllers');
 const screen = document.querySelector('.screen');
+// subtraction button behave differently to other buttons 
+// i still dont know why it happened. 
+// when you click the sub button it will print '-' the Second
+// type you click it it not performing its task to subtract the number
 
 
 controllers.reverse().forEach(e =>{
@@ -9,7 +13,10 @@ controllers.reverse().forEach(e =>{
     btn.className = 'buttons';
     btn.innerHTML = e.name;
     btn.setAttribute('id',e.id);
-    if(btn.getAttribute('id') === 'add' || btn.getAttribute('id') === 'multi' || btn.getAttribute('id') === 'div' || btn.getAttribute('id') === 'sub'){
+    if(btn.getAttribute('id') === 'add' 
+       || btn.getAttribute('id') === 'multi' 
+       || btn.getAttribute('id') === 'div' 
+       || btn.getAttribute('id') === 'sub'){
         btn.addEventListener('click', ()=>{
             let val = screen.textContent;
             if(checkOperators(val) != ''){
@@ -54,9 +61,6 @@ equalsBtn.addEventListener('click', () =>{
 function add(a,b){
     return a + b;
 }
-function sub(a,b){
-    return a - b;
-}
 function multi(a,b){
     return a * b;
 }
@@ -73,8 +77,8 @@ function checkOperators(val){
         return ans;
     }
     if(val.includes('-')){
-        let arr = val.split(/(?=[-+x÷])/);
-        ans = sub(Number(arr[0]),Number(arr[1]));
+        let arr = val.split('-');
+        ans = arr[0] - arr[1];
         return ans;
     }
     if(val.includes('x')){
